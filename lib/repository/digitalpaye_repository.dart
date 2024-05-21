@@ -1,6 +1,7 @@
 // lib/repository/repository.dart
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:digitalpaye_sdk_flutter/enum/enum_response_network.dart';
 import 'package:digitalpaye_sdk_flutter/interface/digitalpaye_config_interface.dart';
 import 'package:digitalpaye_sdk_flutter/interface/digitalpaye_repository_interface.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_payment_process.dart';
@@ -32,9 +33,9 @@ class DigitalpayeRepository extends DigitalpayeRepositoryInterface {
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
-            "code_country": payment.codeCountry,
+            "code_country": payment.codeCountry.value,
             "operator": payment.operator,
-            "currency": payment.currency,
+            "currency": payment.currency.value,
             "url_success": payment.urlSuccess ?? "",
             "url_error": payment.urlError ?? "",
             "customer_id": payment.customerId,
@@ -61,20 +62,27 @@ class DigitalpayeRepository extends DigitalpayeRepositoryInterface {
           NetworkError(
             codeStatus: data["code_status"],
             status: data["status"],
-            message: data["message"],
+            message: EnumResponseNetwork.from(value: data["message"])
+                .localizableValue,
             data: DigitalpayeResponsePayment.fromJson(data["data"]),
           ),
         );
       } else {
         final data = jsonDecode(response.body);
-        return Left(NetworkError(
+        return Left(
+          NetworkError(
             codeStatus: data["code_status"],
             status: data["status"],
-            message: data["message"]));
+            message: EnumResponseNetwork.from(value: data["message"])
+                .localizableValue,
+          ),
+        );
       }
     } catch (e) {
       // Gérer les erreurs
-      return Left(NetworkError(message: e.toString()));
+      return Left(NetworkError(
+        message: EnumResponseNetwork.from(value: e.toString()).localizableValue,
+      ));
     }
   }
 
@@ -109,13 +117,17 @@ class DigitalpayeRepository extends DigitalpayeRepositoryInterface {
       } else {
         final data = jsonDecode(response.body);
         return Left(NetworkError(
-            codeStatus: data["code_status"],
-            status: data["status"],
-            message: data["message"]));
+          codeStatus: data["code_status"],
+          status: data["status"],
+          message:
+              EnumResponseNetwork.from(value: data["message"]).localizableValue,
+        ));
       }
     } catch (e) {
       // Gérer les erreurs
-      return Left(NetworkError(message: e.toString()));
+      return Left(NetworkError(
+        message: EnumResponseNetwork.from(value: e.toString()).localizableValue,
+      ));
     }
   }
 
@@ -150,13 +162,16 @@ class DigitalpayeRepository extends DigitalpayeRepositoryInterface {
           NetworkError(
             codeStatus: data["code_status"],
             status: data["status"],
-            message: data["message"],
+            message: EnumResponseNetwork.from(value: data["message"])
+                .localizableValue,
           ),
         );
       }
     } catch (e) {
       // Gérer les erreurs
-      return Left(NetworkError(message: e.toString()));
+      return Left(NetworkError(
+        message: EnumResponseNetwork.from(value: e.toString()).localizableValue,
+      ));
     }
   }
 }

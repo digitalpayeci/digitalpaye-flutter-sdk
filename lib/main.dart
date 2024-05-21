@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:digitalpaye_sdk_flutter/digitalpaye_sdk_flutter.dart';
+import 'package:digitalpaye_sdk_flutter/enum/digitalpaye_enum_countries.dart';
+import 'package:digitalpaye_sdk_flutter/enum/digitalpaye_enum_currencies.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_config.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_payment_config.dart';
 import 'package:digitalpaye_sdk_flutter/utils/app_color.dart';
@@ -40,7 +42,7 @@ class HomePage extends StatelessWidget {
         apiKey: 'live_digitalpaye933061',
         apiSecret: 'f511e4f4-d932-4fcd-a804-51539700d60c',
         isSandbox: false,
-        color: AppColors.orange);
+        color: AppColors.orange,);
     return Scaffold(
       appBar: AppBar(title: const Text('Digitalpaye Flutter SDK Example')),
       body: Center(
@@ -48,11 +50,11 @@ class HomePage extends StatelessWidget {
           onPressed: () async {
             final paymentId = generatePaymentId();
             final payment = DigitalpayePaymentConfig(
-              codeCountry: "CI",
+              codeCountry: DigitalpayeEnumCountries.ivoryCoast,
               amount: 10000.0,
               transactionId: paymentId,
               designation: "Vente de télévision",
-              currency: 'XOF',
+              currency: DigitalpayeEnumCurrencies.xof,
               emailUser: "elieguei225@gmail.com",
               nameUser: "HELIE GUEI",
               customerId: "0777101308",

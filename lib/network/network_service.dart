@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'network_error.dart';
 import 'network_error_type.dart';
-import 'network_info.dart';
 import 'network_param.dart';
 
 abstract class NetworkService<NetWorkParam> {
@@ -15,20 +14,14 @@ abstract class NetworkService<NetWorkParam> {
 class NetworkServiceImpl extends NetworkService<NetWorkRequest> {
   NetworkServiceImpl({
     required this.httpClient,
-    required this.networkInfo,
   });
 
   final Client httpClient;
-  final NetworkInfo networkInfo;
 
   @override
   Future<Either<NetworkError, Map<String, dynamic>>> fetchRequest(
     NetWorkRequest request,
   ) async {
-    
-    if (!(await networkInfo.isConnected)) {
-      return Left(_noInternetError());
-    }
     try {
       switch (request.method) {
         case NetworkMethod.get:
@@ -55,7 +48,7 @@ class NetworkServiceImpl extends NetworkService<NetWorkRequest> {
   }
 
   String _baseUrlFrom({required NetWorkRequest request}) {
-    return  request.path;
+    return request.path;
   }
 
   Future<Either<NetworkError, Map<String, dynamic>>> _getRequest(

@@ -1,8 +1,10 @@
+import 'package:digitalpaye_sdk_flutter/enum/digitalpaye_enum_countries.dart';
+import 'package:digitalpaye_sdk_flutter/enum/digitalpaye_enum_currencies.dart';
 import 'package:digitalpaye_sdk_flutter/interface/digitalpaye_payment_process_interface.dart';
 
 class DigitalpayePaymentProcess implements DigitalpayePaymentProcessInterface {
   @override
-  final String codeCountry;
+  final DigitalpayeEnumCountries codeCountry;
 
   @override
   final double amount;
@@ -22,7 +24,7 @@ class DigitalpayePaymentProcess implements DigitalpayePaymentProcessInterface {
   final String designation;
 
   @override
-  final String currency;
+  final DigitalpayeEnumCurrencies currency;
 
   @override
   final String operator;

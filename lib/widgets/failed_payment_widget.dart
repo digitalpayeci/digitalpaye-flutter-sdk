@@ -48,7 +48,7 @@ class FailedPaymentWidget extends StatelessWidget {
           ),
           verticalSpaceSmall,
           Text(
-            "${formatNumber(int.parse(responsePayment.amount??""))} ${responsePayment.currency}",
+            "${formatNumber(int.parse(responsePayment.amount ?? ""))} ${responsePayment.currency}",
             style: GoogleFonts.poppins(
               fontSize: 32,
               color: AppColors.black,
@@ -56,34 +56,35 @@ class FailedPaymentWidget extends StatelessWidget {
             ),
           ),
           verticalSpaceSmall,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Référence",
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: AppColors.colorTexte,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              verticalSpaceTiny,
+              Text(
+                "${responsePayment.transactionId}",
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          verticalSpaceRegular,
           const Divider(
             color: AppColors.greyFFD9D9D9,
           ),
           verticalSpaceSmall,
           Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "ID de la transaction",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  Text(
-                    "${responsePayment.transactionId}",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              verticalSpaceRegular,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,7 +97,7 @@ class FailedPaymentWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "${formatNumber(int.parse(responsePayment.amount??""))} ${responsePayment.currency}",
+                    "${formatNumber(int.parse(responsePayment.amount ?? ""))} ${responsePayment.currency}",
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       color: AppColors.black,
@@ -170,7 +171,7 @@ class FailedPaymentWidget extends StatelessWidget {
                     config.color ?? AppColors.primaryColor),
               ),
               onPressed: () {
-                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               child: Text(
                 "Retour",

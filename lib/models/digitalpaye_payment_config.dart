@@ -1,9 +1,11 @@
 // lib/models/digitalpaye_payment_config.dart
+import 'package:digitalpaye_sdk_flutter/enum/digitalpaye_enum_countries.dart';
+import 'package:digitalpaye_sdk_flutter/enum/digitalpaye_enum_currencies.dart';
 import 'package:digitalpaye_sdk_flutter/interface/digitalpaye_payment_config_interface.dart';
 
 class DigitalpayePaymentConfig implements DigitalpayePaymentConfigInterface {
   @override
-  final String codeCountry;
+  final DigitalpayeEnumCountries codeCountry;
   @override
   final double amount;
   @override
@@ -17,7 +19,7 @@ class DigitalpayePaymentConfig implements DigitalpayePaymentConfigInterface {
   @override
   final String? emailUser;
   @override
-  final String currency;
+  final DigitalpayeEnumCurrencies currency;
   @override
   final String? urlSuccess;
   @override

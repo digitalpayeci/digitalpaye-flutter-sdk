@@ -3,6 +3,7 @@ enum EnumStatusPayment {
   unknown(value: "unknown"),
   failed(value: "FAILED"),
   cancel(value: "CANCEL"),
+  pending(value: "PENDING"),
   successful(value: "SUCCESSFUL");
 
   final String value;

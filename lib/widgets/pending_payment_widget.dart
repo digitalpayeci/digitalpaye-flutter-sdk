@@ -1,4 +1,3 @@
-import 'package:digitalpaye_sdk_flutter/enum/enum_type_payment.dart';
 import 'package:digitalpaye_sdk_flutter/guidelines/box_spacing_guidelines.dart';
 import 'package:digitalpaye_sdk_flutter/interface/digitalpaye_config_interface.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_response_payment.dart';
@@ -7,15 +6,17 @@ import 'package:digitalpaye_sdk_flutter/utils/function.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SuccessPaymentWidget extends StatelessWidget {
+class PendingPaymentWidget extends StatelessWidget {
   final DigitalpayeResponsePayment responsePayment;
   final DigitalpayeConfigInterface config;
+  final VoidCallback callBack;
 
-  const SuccessPaymentWidget({
-    super.key,
+  const PendingPaymentWidget({
+    Key? key,
     required this.responsePayment,
     required this.config,
-  });
+    required this.callBack,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class SuccessPaymentWidget extends StatelessWidget {
               height: 70,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.greenApp,
+                color: AppColors.warningdColor.withOpacity(0.5),
               ),
               child: const Center(
                 child: Icon(
@@ -44,7 +45,7 @@ class SuccessPaymentWidget extends StatelessWidget {
             ),
             verticalSpaceMedium,
             Text(
-              "Paiement réuissi.",
+              "Paiement en attente.",
               style: GoogleFonts.poppins(
                 fontSize: 20,
                 color: AppColors.black,
@@ -53,7 +54,7 @@ class SuccessPaymentWidget extends StatelessWidget {
             ),
             verticalSpaceSmall,
             Text(
-              "${formatNumber(int.parse(responsePayment.amount ?? ""))} ${responsePayment.currency}",
+              "${formatNumber(int.parse(responsePayment.amount ?? "0"))} ${responsePayment.currency ?? ""}",
               style: GoogleFonts.poppins(
                 fontSize: 32,
                 color: AppColors.black,
@@ -88,77 +89,14 @@ class SuccessPaymentWidget extends StatelessWidget {
               color: AppColors.greyFFD9D9D9,
             ),
             verticalSpaceSmall,
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Montant",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    Text(
-                      "${formatNumber(int.parse(responsePayment.amount ?? ""))} ${responsePayment.currency}",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                verticalSpaceRegular,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Opérateur",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    Text(
-                      EnumTypePayment.from(
-                              value: responsePayment.typePayment ??
-                                  EnumTypePayment.unknown.value)
-                          .localizableValue,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                verticalSpaceRegular,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Date",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    Text(
-                      "${responsePayment.date}",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            Text(
+              "Votre paiement est en attente de validation. Veuillez valider la transaction.",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 15,
+                color: AppColors.black,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             verticalSpaceExtraLarge,
             SizedBox(
@@ -175,11 +113,9 @@ class SuccessPaymentWidget extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all<Color>(
                       config.color ?? AppColors.primaryColor),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                onPressed: callBack,
                 child: Text(
-                  "Retour",
+                  "Vérifier le paiement",
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     color: AppColors.white,

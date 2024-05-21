@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:digitalpaye_sdk_flutter/enum/enum_status_payment.dart';
 import 'package:digitalpaye_sdk_flutter/enum/enum_type_payment.dart';
-import 'package:digitalpaye_sdk_flutter/logger/digitalpaye_logger.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_payment_config.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_payment_process.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_response_payment.dart';
@@ -21,6 +19,8 @@ class PaymentViewModel extends ChangeNotifier {
   ValueChanged<bool>? onPending;
   ValueChanged<DigitalpayeResponsePayment>? onFailed;
   ValueChanged<DigitalpayeResponsePayment>? onSuccessful;
+  ValueChanged<DigitalpayeResponsePayment>? onCancelPending;
+
   ValueChanged<String>? getAccessToken;
 
   ValueChanged<bool>? onError;
@@ -158,16 +158,16 @@ class PaymentViewModel extends ChangeNotifier {
       _isLoader = true;
       notifyListeners();
       DigitalpayePaymentProcess payment = DigitalpayePaymentProcess(
-        codeCountry: "CI",
+        codeCountry: params.codeCountry,
         amount: params.amount,
         transactionId: params.transactionId,
         designation: params.designation,
         nameUser: params.nameUser ?? name,
-        customerId: params.customerId ?? phone,
+        customerId: phone,
         currency: params.currency,
         urlError: params.urlError ?? "",
         urlSuccess: params.urlSuccess ?? "",
-        emailUser: params.emailUser ?? email,
+        emailUser: email,
         otpCode: codePin ?? "",
         operator: selectedPayment?.value ?? "",
       );
@@ -209,20 +209,21 @@ class PaymentViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> startStatusPolling({required BuildContext context, required String token}) async {
+  Future<void> startStatusPolling(
+      {required BuildContext context, required String token}) async {
     const Duration pollInterval = Duration(seconds: 10);
     const Duration totalPollingDuration = Duration(minutes: 3);
     Timer.periodic(pollInterval, (Timer timer) {
       getStatusPayment(token: token);
       totalMilliseconds += pollInterval.inMilliseconds;
-      notifyListeners();
-      DigitalpayeLogger.e("TIME_DELAY $totalMilliseconds");
       if (totalMilliseconds >= totalPollingDuration.inMilliseconds) {
         timer.cancel();
         isLoader = false;
-        Navigator.of(context).pop();
+        onCancelPending?.call(responsePayment!);
+        _statusPayment = EnumStatusPayment.pending;
       }
     });
+    notifyListeners();
   }
 
   Future<void> getStatusPayment({required String token}) async {
@@ -242,6 +243,7 @@ class PaymentViewModel extends ChangeNotifier {
         onError?.call(true);
       }
     }, (response) {
+      responsePayment = response.data;
       if (response.codeStatus == 202) {
         onPending?.call(true);
       } else {
@@ -253,6 +255,7 @@ class PaymentViewModel extends ChangeNotifier {
     });
     notifyListeners();
   }
+
   Future<void> generateToken() async {
     _isLoader = true;
     notifyListeners();
