@@ -4,7 +4,6 @@ import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'network_error.dart';
-import 'network_error_type.dart';
 import 'network_param.dart';
 
 abstract class NetworkService<NetWorkParam> {
@@ -101,12 +100,6 @@ class NetworkServiceImpl extends NetworkService<NetWorkRequest> {
     Map<String, String> headers = {};
     headers.addEntries(headers.entries);
     return headers;
-  }
-
-  NetworkError _noInternetError() {
-    return NetworkError(
-        message: "No internet Connection",
-        type: NetworkErrorType.NoInternetConnection);
   }
 
   Either<NetworkError, Map<String, dynamic>> _response(http.Response response) {

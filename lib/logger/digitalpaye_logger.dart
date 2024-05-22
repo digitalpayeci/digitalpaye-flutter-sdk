@@ -1,12 +1,8 @@
 import 'package:logger/logger.dart';
 
-enum DigitalpayeLoggerType { verbose, debug, info, warning, error }
+enum DigitalpayeLoggerType { debug, info, warning, error }
 
 abstract class DigitalpayeLogger {
-  static void v(String message, [dynamic error, StackTrace? stackTrace]) {
-    log(message, DigitalpayeLoggerType.verbose, error, stackTrace);
-  }
-
   static void d(String message, [dynamic error, StackTrace? stackTrace]) {
     log(message, DigitalpayeLoggerType.debug, error, stackTrace);
   }
@@ -28,9 +24,6 @@ abstract class DigitalpayeLogger {
     var logger = Logger();
 
     switch (type) {
-      case DigitalpayeLoggerType.verbose:
-        logger.v(message, error: error, stackTrace: stackTrace);
-        break;
       case DigitalpayeLoggerType.debug:
         logger.d(message, error: error, stackTrace: stackTrace);
         break;

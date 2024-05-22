@@ -1,6 +1,6 @@
 name: digitalpaye_sdk_flutter
-description: "The Digitalpaye Flutter SDK is a comprehensive toolkit designed to seamlessly integrate Digitalpaye's payment functionalities into Flutter applications. With this SDK, developers can easily incorporate secure and efficient payment processing capabilities into their Flutter projects, enabling users to make transactions with confidence."
-version: 1.1.9
+description: "Easily integrate secure payments into Flutter with the Digitalpaye SDK."
+version: 1.2.0
 homepage: https://developers.digitalpaye.com
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -21,7 +21,7 @@ dependencies:
   get: ^4.6.5
   lottie: ^3.1.0
   #FONTS
-  google_fonts: 6.1.0
+  google_fonts: ^6.2.0
   jwt_decode: ^0.3.1
   either_dart: ^1.0.0
   provider: ^6.1.2
@@ -32,7 +32,7 @@ dependencies:
   dotted_border: ^2.1.0
 
   #PININPUT
-  pinput: ^2.2.31
+  pinput: ^4.0.0
 
 dev_dependencies:
   flutter_test:
