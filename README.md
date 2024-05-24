@@ -87,7 +87,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,8 @@ class MyApp extends StatelessWidget {
 }
 
 String generatePaymentId({int length = 20}) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   final random = Random();
   return String.fromCharCodes(Iterable.generate(
     length,
@@ -107,17 +108,16 @@ String generatePaymentId({int length = 20}) {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final config = DigitalpayeConfig(
-      apiKey: 'live_digitalpaye931',
-      apiSecret: 'f511e4f4-d932-928cd-a804-51539700d60c',
+      apiKey: 'live_digitalpaye92223061',
+      apiSecret: 'f5231e4f4-d932-4fcd-a804-51539700d60c',
       isSandbox: false,
       color: AppColors.orange,
     );
-
     return Scaffold(
       appBar: AppBar(title: const Text('Digitalpaye Flutter SDK Example')),
       body: Center(
@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
             final paymentId = generatePaymentId();
             final payment = DigitalpayePaymentConfig(
               codeCountry: DigitalpayeEnumCountries.ivoryCoast,
-              amount: 1000.0,
+              amount: 10000.0,
               transactionId: paymentId,
               designation: "Vente de télévision",
               currency: DigitalpayeEnumCurrencies.xof,
@@ -136,18 +136,26 @@ class HomePage extends StatelessWidget {
               urlError: "https://digitalpaye.com",
               urlSuccess: "https://digitalpaye.com",
             );
-
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => DigitalpayeFlutterSDK(
                   config: config,
                   payment: payment,
+                  errorBuilder: (error) {
+                    return Container();
+                  },
+                  successBuilder: (success) {
+                    return Container();
+                  },
+                  pendingBuilder: (pending) {
+                   return Container();
+                  },
                 ),
               ),
             );
           },
-          child: const Text('Make Payment'),
+          child: const Text('Payer maintnant'),
         ),
       ),
     );

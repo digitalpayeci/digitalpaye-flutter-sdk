@@ -8,7 +8,7 @@ import 'package:digitalpaye_sdk_flutter/models/digitalpaye_payment_process.dart'
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_response_payment.dart';
 import 'package:digitalpaye_sdk_flutter/models/digitalpaye_response_token.dart';
 import 'package:digitalpaye_sdk_flutter/network/network_error.dart';
-import 'package:digitalpaye_sdk_flutter/network/response/base_network_response.dart';
+import 'package:digitalpaye_sdk_flutter/network/response/default_network_response.dart';
 import 'package:digitalpaye_sdk_flutter/utils/constantes.dart';
 import 'package:http/http.dart' as http;
 
