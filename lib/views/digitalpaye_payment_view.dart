@@ -91,6 +91,9 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
 
   @override
   Widget build(BuildContext context) {
+    bool isBackgroundColorBlack =
+        (widget.config.color ?? AppColors.white) == AppColors.primaryColor;
+
     final defaultPinTheme = PinTheme(
       width: 60,
       height: 60,
@@ -138,15 +141,15 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
             "Retour",
             style: GoogleFonts.poppins(
               fontSize: 14,
-              color: AppColors.black,
+              color: isBackgroundColorBlack ? AppColors.white : AppColors.black,
               fontWeight: FontWeight.w500,
             ),
           ),
           centerTitle: false,
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios,
-              color: AppColors.black,
+              color: isBackgroundColorBlack ? AppColors.white : AppColors.black,
             ),
             onPressed: () {
               if (_viewModel.interfacePayment == null) {

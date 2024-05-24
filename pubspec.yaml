@@ -1,6 +1,6 @@
 name: digitalpaye_sdk_flutter
 description: "Easily integrate secure payments into Flutter with the Digitalpaye SDK."
-version: 1.2.0
+version: 1.2.1
 homepage: https://developers.digitalpaye.com
 environment:
   sdk: '>=3.2.6 <4.0.0'
