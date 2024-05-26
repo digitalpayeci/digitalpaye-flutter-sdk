@@ -1,3 +1,9 @@
+## 1.2.3
+
+- Fix bugs
+- Add logo merchant
+- Redesign
+
 ## 1.2.2
 
 - Fix bugs google_font
