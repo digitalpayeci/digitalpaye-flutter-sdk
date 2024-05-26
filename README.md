@@ -21,7 +21,7 @@ Avant d'utiliser le SDK, configurez-le avec vos informations d'API. Vous devez f
 ```dart
 final config = DigitalpayeConfig(
   apiKey: 'live_digitalpaye931',
-  apiSecret: 'f511e4f4-d932-928cd-a804-51539700d60c',
+  apiSecret: 'f28811e4f4-d932-928cd-a804-51539700d60c',
   isSandbox: false,
   color: AppColors.orange,
 );

@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Fix bugs google_font
+
 ## 1.2.1
 
 - Make plugin color dynamic
