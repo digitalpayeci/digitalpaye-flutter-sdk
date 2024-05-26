@@ -746,13 +746,59 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .start,
+                                                                .center,
                                                         children: [
                                                           Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
-                                                                    .start,
+                                                                    .center,
                                                             children: [
+                                                              ClipOval(
+                                                                child: widget
+                                                                            .config
+                                                                            .logo !=
+                                                                        null
+                                                                    ? Image
+                                                                        .asset(
+                                                                        widget
+                                                                            .config
+                                                                            .logo!,
+                                                                        width:
+                                                                            70.0,
+                                                                        height:
+                                                                            70.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      )
+                                                                    : Image
+                                                                        .asset(
+                                                                        "assets/images/digitalpaye.png",
+                                                                        width:
+                                                                            70.0,
+                                                                        height:
+                                                                            70.0,
+                                                                        package:
+                                                                            "digitalpaye_sdk_flutter",
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                              ),
+                                                              verticalSpaceSmall,
+                                                              Text(
+                                                                "${formatNumber(widget.payment.amount.toInt())} ${widget.payment.currency.value}",
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  fontSize: 32,
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w800,
+                                                                ),
+                                                              ),
+                                                              verticalSpaceTiny,
                                                               Text(
                                                                 widget.payment
                                                                     .designation,
@@ -767,10 +813,9 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
                                                                           .w400,
                                                                 ),
                                                               ),
-                                                              verticalSpaceSmall,
+                                                              verticalSpaceTiny,
                                                               Text(
-                                                                widget.payment
-                                                                    .transactionId,
+                                                                "Ref: ${widget.payment.transactionId}",
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -779,24 +824,10 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
                                                                       .colorTexte,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w400,
+                                                                          .w300,
                                                                 ),
                                                               ),
                                                               verticalSpaceSmall,
-                                                              Text(
-                                                                "${formatNumber(widget.payment.amount.toInt())} ${widget.payment.currency.value}",
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  fontSize: 22,
-                                                                  color:
-                                                                      AppColors
-                                                                          .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w800,
-                                                                ),
-                                                              ),
                                                             ],
                                                           ),
                                                           verticalSpaceRegular,
@@ -858,251 +889,262 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
                                                               ),
                                                             ),
                                                           verticalSpaceRegular,
-                                                          Text(
-                                                            "Sélectionner un moyen de paiement",
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                              fontSize: 16,
-                                                              color: AppColors
-                                                                  .black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                          ),
-                                                          verticalSpaceRegular,
-                                                          Row(
-                                                            children:
-                                                                List.generate(
-                                                              _viewModel
-                                                                  .paymentTypes
-                                                                  .length,
-                                                              (index) => Row(
-                                                                children: [
-                                                                  MouseRegion(
-                                                                    cursor:
-                                                                        SystemMouseCursors
-                                                                            .click,
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        _viewModel
-                                                                            .selectPayment(_viewModel.paymentTypes[index]);
-                                                                      },
-                                                                      child: Image
-                                                                          .asset(
-                                                                        width:
-                                                                            55,
-                                                                        package:
-                                                                            "digitalpaye_sdk_flutter",
-                                                                        key:
-                                                                            UniqueKey(),
-                                                                        _viewModel.selectedPayment?.value ==
-                                                                                _viewModel.paymentTypes[index].value
-                                                                            ? _viewModel.paymentTypes[index].svgSelected
-                                                                            : _viewModel.paymentTypes[index].svgUnSelected,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  horizontalSpaceRegular,
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          verticalSpaceRegular,
-                                                          Text(
-                                                            "Nom complet",
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                              fontSize: 14,
-                                                              color: AppColors
-                                                                  .black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
-                                                          ),
-                                                          verticalSpaceSmall,
-                                                          Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height: 50,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border:
-                                                                  Border.all(
-                                                                color: AppColors
-                                                                    .greyFFD9D9D9,
-                                                                width: 1,
-                                                              ),
-                                                              color: AppColors
-                                                                  .white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            child: Container(
-                                                              margin:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                left: 10,
-                                                                right: 10,
-                                                              ),
-                                                              child:
-                                                                  TextFormField(
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 14,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                                autofocus:
-                                                                    false,
-                                                                controller:
-                                                                    customerNameController,
-                                                                decoration:
-                                                                    const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                ),
-                                                                textInputAction:
-                                                                    TextInputAction
-                                                                        .next,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .text,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  _viewModel
-                                                                          .name =
-                                                                      value;
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          verticalSpaceSmall,
-                                                          Text(
-                                                            "Adresse email",
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                              fontSize: 14,
-                                                              color: AppColors
-                                                                  .black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
-                                                          ),
-                                                          verticalSpaceSmall,
-                                                          Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height: 50,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border:
-                                                                  Border.all(
-                                                                color: AppColors
-                                                                    .greyFFD9D9D9,
-                                                                width: 1,
-                                                              ),
-                                                              color: AppColors
-                                                                  .white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            child: Container(
-                                                              margin:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                left: 10,
-                                                                right: 10,
-                                                              ),
-                                                              child:
-                                                                  TextFormField(
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 14,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                                autofocus:
-                                                                    false,
-                                                                controller:
-                                                                    customerEmailController,
-                                                                decoration:
-                                                                    const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                ),
-                                                                textInputAction:
-                                                                    TextInputAction
-                                                                        .next,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .emailAddress,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  _viewModel
-                                                                          .email =
-                                                                      value;
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          verticalSpaceSmall,
-                                                          Text(
-                                                            "Numéro de téléphone",
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                              fontSize: 14,
-                                                              color: AppColors
-                                                                  .black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
-                                                          ),
-                                                          verticalSpaceSmall,
-                                                          Row(
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                             children: [
-                                                              Expanded(
-                                                                flex: 0,
+                                                              Text(
+                                                                "Sélectionner un moyen de paiement",
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  fontSize: 16,
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                              verticalSpaceRegular,
+                                                              Row(
+                                                                children: List
+                                                                    .generate(
+                                                                  _viewModel
+                                                                      .paymentTypes
+                                                                      .length,
+                                                                  (index) =>
+                                                                      Row(
+                                                                    children: [
+                                                                      MouseRegion(
+                                                                        cursor:
+                                                                            SystemMouseCursors.click,
+                                                                        child:
+                                                                            GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            _viewModel.selectPayment(_viewModel.paymentTypes[index]);
+                                                                          },
+                                                                          child:
+                                                                              Image.asset(
+                                                                            width:
+                                                                                55,
+                                                                            package:
+                                                                                "digitalpaye_sdk_flutter",
+                                                                            key:
+                                                                                UniqueKey(),
+                                                                            _viewModel.selectedPayment?.value == _viewModel.paymentTypes[index].value
+                                                                                ? _viewModel.paymentTypes[index].svgSelected
+                                                                                : _viewModel.paymentTypes[index].svgUnSelected,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      horizontalSpaceRegular,
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              verticalSpaceRegular,
+                                                              Text(
+                                                                "Nom complet",
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  fontSize: 14,
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              verticalSpaceSmall,
+                                                              Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                height: 50,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: AppColors
+                                                                        .greyFFD9D9D9,
+                                                                    width: 1,
+                                                                  ),
+                                                                  color:
+                                                                      AppColors
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8),
+                                                                ),
                                                                 child:
                                                                     Container(
-                                                                        alignment: Alignment
-                                                                            .center,
-                                                                        padding: const EdgeInsets
-                                                                            .all(
-                                                                            5),
-                                                                        height:
-                                                                            50,
-                                                                        decoration:
-                                                                            BoxDecoration(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    left: 10,
+                                                                    right: 10,
+                                                                  ),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                                    autofocus:
+                                                                        false,
+                                                                    controller:
+                                                                        customerNameController,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      border: InputBorder
+                                                                          .none,
+                                                                      enabledBorder:
+                                                                          InputBorder
+                                                                              .none,
+                                                                      focusedBorder:
+                                                                          InputBorder
+                                                                              .none,
+                                                                    ),
+                                                                    textInputAction:
+                                                                        TextInputAction
+                                                                            .next,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      _viewModel
+                                                                              .name =
+                                                                          value;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              verticalSpaceSmall,
+                                                              Text(
+                                                                "Adresse email",
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  fontSize: 14,
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              verticalSpaceSmall,
+                                                              Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                height: 50,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: AppColors
+                                                                        .greyFFD9D9D9,
+                                                                    width: 1,
+                                                                  ),
+                                                                  color:
+                                                                      AppColors
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8),
+                                                                ),
+                                                                child:
+                                                                    Container(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    left: 10,
+                                                                    right: 10,
+                                                                  ),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                                    autofocus:
+                                                                        false,
+                                                                    controller:
+                                                                        customerEmailController,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      border: InputBorder
+                                                                          .none,
+                                                                      enabledBorder:
+                                                                          InputBorder
+                                                                              .none,
+                                                                      focusedBorder:
+                                                                          InputBorder
+                                                                              .none,
+                                                                    ),
+                                                                    textInputAction:
+                                                                        TextInputAction
+                                                                            .next,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .emailAddress,
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      _viewModel
+                                                                              .email =
+                                                                          value;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              verticalSpaceSmall,
+                                                              Text(
+                                                                "Numéro de téléphone",
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  fontSize: 14,
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              verticalSpaceSmall,
+                                                              Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 0,
+                                                                    child: Container(
+                                                                        alignment: Alignment.center,
+                                                                        padding: const EdgeInsets.all(5),
+                                                                        height: 50,
+                                                                        decoration: BoxDecoration(
                                                                           border:
                                                                               Border.all(
                                                                             color:
@@ -1115,8 +1157,7 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
                                                                           borderRadius:
                                                                               BorderRadius.circular(8),
                                                                         ),
-                                                                        child:
-                                                                            Row(
+                                                                        child: Row(
                                                                           children: [
                                                                             Image.asset(
                                                                               "assets/images/flag_ivory_coast.png",
@@ -1134,82 +1175,81 @@ class DigitalpayePaymentViewState extends State<DigitalpayePaymentView> {
                                                                             ),
                                                                           ],
                                                                         )),
-                                                              ),
-                                                              horizontalSpaceTiny,
-                                                              Expanded(
-                                                                child:
-                                                                    Container(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  height: 50,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      color: AppColors
-                                                                          .greyFFD9D9D9,
-                                                                      width: 1,
-                                                                    ),
-                                                                    color: AppColors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(8),
                                                                   ),
-                                                                  child:
-                                                                      Container(
-                                                                    margin:
-                                                                        const EdgeInsets
-                                                                            .only(
-                                                                      left: 10,
-                                                                      right: 10,
-                                                                    ),
+                                                                  horizontalSpaceTiny,
+                                                                  Expanded(
                                                                     child:
-                                                                        TextFormField(
-                                                                      style:
-                                                                          const TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                      autofocus:
-                                                                          false,
+                                                                        Container(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      height:
+                                                                          50,
                                                                       decoration:
-                                                                          const InputDecoration(
+                                                                          BoxDecoration(
                                                                         border:
-                                                                            InputBorder.none,
-                                                                        enabledBorder:
-                                                                            InputBorder.none,
-                                                                        focusedBorder:
-                                                                            InputBorder.none,
+                                                                            Border.all(
+                                                                          color:
+                                                                              AppColors.greyFFD9D9D9,
+                                                                          width:
+                                                                              1,
+                                                                        ),
+                                                                        color: AppColors
+                                                                            .white,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(8),
                                                                       ),
-                                                                      textInputAction:
-                                                                          TextInputAction
-                                                                              .done,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .number,
-                                                                      controller:
-                                                                          customerPhoneController,
-                                                                      inputFormatters: <TextInputFormatter>[
-                                                                        LengthLimitingTextInputFormatter(
-                                                                            10),
-                                                                        FilteringTextInputFormatter
-                                                                            .digitsOnly
-                                                                      ],
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        _viewModel.phone =
-                                                                            value;
-                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        margin:
+                                                                            const EdgeInsets.only(
+                                                                          left:
+                                                                              10,
+                                                                          right:
+                                                                              10,
+                                                                        ),
+                                                                        child:
+                                                                            TextFormField(
+                                                                          style:
+                                                                              const TextStyle(
+                                                                            fontSize:
+                                                                                14,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                          autofocus:
+                                                                              false,
+                                                                          decoration:
+                                                                              const InputDecoration(
+                                                                            border:
+                                                                                InputBorder.none,
+                                                                            enabledBorder:
+                                                                                InputBorder.none,
+                                                                            focusedBorder:
+                                                                                InputBorder.none,
+                                                                          ),
+                                                                          textInputAction:
+                                                                              TextInputAction.done,
+                                                                          keyboardType:
+                                                                              TextInputType.number,
+                                                                          controller:
+                                                                              customerPhoneController,
+                                                                          inputFormatters: <TextInputFormatter>[
+                                                                            LengthLimitingTextInputFormatter(10),
+                                                                            FilteringTextInputFormatter.digitsOnly
+                                                                          ],
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            _viewModel.phone =
+                                                                                value;
+                                                                          },
+                                                                        ),
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
+                                                                ],
                                                               ),
                                                             ],
                                                           ),
